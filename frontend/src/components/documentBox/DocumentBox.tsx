@@ -10,9 +10,11 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import '@react-pdf-viewer/zoom/lib/styles/index.css';
 import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 import '@react-pdf-viewer/search/lib/styles/index.css';
+import { useLineStore } from '../../stores/lineStore';
+import { useShallow } from 'zustand/react/shallow';
 
 function DocumentBox() {
-  const [fileUrl, setFileUrl] = useState('');
+  const pdfFilePath = useLineStore(useShallow((state) => state.pdfFilePath));
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const zoomPluginInstance = zoomPlugin();
@@ -20,8 +22,8 @@ function DocumentBox() {
   const searchPluginInstance = searchPlugin();
 
   return (
-    <Worker workerUrl={ `https://unpkg.com/pdfjs-dist@${ version }/build/pdf.worker.min.js` }> 
-      <Viewer plugins={[defaultLayoutPluginInstance, zoomPluginInstance, pageNavigationPluginInstance, searchPluginInstance]} fileUrl={fileUrl} viewMode={ViewMode.SinglePage} />
+    <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${version}/build/pdf.worker.min.js`}>
+      <Viewer plugins={[defaultLayoutPluginInstance, zoomPluginInstance, pageNavigationPluginInstance, searchPluginInstance]} fileUrl={`//italo.williandrade.me/pdfs/${pdfFilePath}`} viewMode={ViewMode.SinglePage} />
     </Worker>
   );
 }
