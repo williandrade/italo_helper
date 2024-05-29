@@ -4,6 +4,7 @@ import { zoomPlugin } from '@react-pdf-viewer/zoom';
 import { pageNavigationPlugin } from '@react-pdf-viewer/page-navigation';
 import { searchPlugin } from '@react-pdf-viewer/search';
 import { useState, useEffect } from 'react';
+import { version } from 'pdfjs-dist';  
 
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import '@react-pdf-viewer/zoom/lib/styles/index.css';
@@ -11,7 +12,7 @@ import '@react-pdf-viewer/page-navigation/lib/styles/index.css';
 import '@react-pdf-viewer/search/lib/styles/index.css';
 
 function DocumentBox() {
-  const [fileUrl, setFileUrl] = useState('http://localhost:3005/pdfs/linha_208_planilha_de_campo.pdf');
+  const [fileUrl, setFileUrl] = useState('');
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const zoomPluginInstance = zoomPlugin();
@@ -19,7 +20,7 @@ function DocumentBox() {
   const searchPluginInstance = searchPlugin();
 
   return (
-    <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
+    <Worker workerUrl={ `https://unpkg.com/pdfjs-dist@${ version }/build/pdf.worker.min.js` }> 
       <Viewer plugins={[defaultLayoutPluginInstance, zoomPluginInstance, pageNavigationPluginInstance, searchPluginInstance]} fileUrl={fileUrl} viewMode={ViewMode.SinglePage} />
     </Worker>
   );
