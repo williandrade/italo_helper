@@ -10,7 +10,7 @@ const server = {
       redirect: 'follow',
     };
 
-    return fetch(`https://${server.host}/upload`, requestOptions);
+    return fetch(`//${server.host}/upload`, requestOptions);
   },
   toExcel: (data: any) => {
     const requestOptions: RequestInit = {
@@ -20,7 +20,7 @@ const server = {
       redirect: 'follow',
     };
 
-    return fetch(`https://${server.host}/toExcel`, requestOptions);
+    return fetch(`//${server.host}/toExcel`, requestOptions);
   }
 };
 
